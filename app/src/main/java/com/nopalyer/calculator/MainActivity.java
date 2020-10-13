@@ -19,6 +19,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             btn_sub,btn_add,btn_equ,btn_p;
     EditText text;
 
+    private static boolean isComplteed = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,6 +105,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         String str = text.getText().toString();
+        if (isComplteed)
+            str="0";
         switch(v.getId()){
             case R.id.btn_del:
                 if(str.length()>1){
@@ -118,6 +122,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 text.setText(str);
                 break;
             case R.id.btn_0:
+                isComplteed=false;
                 if (str.equals("0")){
                     str="0";
                 }
@@ -127,6 +132,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 text.setText(str);
                 break;
             case R.id.btn_1:
+                isComplteed=false;
+
                 if (str.equals("0")){
                     str="1";
                 }
@@ -136,6 +143,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 text.setText(str);
                 break;
             case R.id.btn_2:
+                isComplteed=false;
+
                 if (str.equals("0")){
                     str="2";
                 }
@@ -145,6 +154,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 text.setText(str);
                 break;
             case R.id.btn_3:
+                isComplteed=false;
+
                 if (str.equals("0")){
                     str="3";
                 }
@@ -154,6 +165,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 text.setText(str);
                 break;
             case R.id.btn_4:
+                isComplteed=false;
+
                 if (str.equals("0")){
                     str="4";
                 }
@@ -163,6 +176,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 text.setText(str);
                 break;
             case R.id.btn_5:
+                isComplteed=false;
+
                 if (str.equals("0")){
                     str="5";
                 }
@@ -172,6 +187,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 text.setText(str);
                 break;
             case R.id.btn_6:
+                isComplteed=false;
+
                 if (str.equals("0")){
                     str="6";
                 }
@@ -181,6 +198,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 text.setText(str);
                 break;
             case R.id.btn_7:
+                isComplteed=false;
+
                 if (str.equals("0")){
                     str="7";
                 }
@@ -190,6 +209,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 text.setText(str);
                 break;
             case R.id.btn_8:
+                isComplteed=false;
+
                 if (str.equals("0")){
                     str="8";
                 }
@@ -199,6 +220,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 text.setText(str);
                 break;
             case R.id.btn_9:
+                isComplteed=false;
+
                 if (str.equals("0")){
                     str="9";
                 }
@@ -220,6 +243,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
             case R.id.btn_add:
+
                 if(str.charAt(str.length()-1)=='+'||str.charAt(str.length()-1)=='-'||str.charAt(str.length()-1)=='×'||str.charAt(str.length()-1)=='÷'||str.charAt(str.length()-1)=='.'){
                     Toast toast = Toast.makeText(MainActivity.this,"输入错误",Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER, 0, 0);
@@ -268,6 +292,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
             case R.id.btn_leftbra:
+                isComplteed=false;
+
                 if (str.length()==1){
                     str="(";
                 }
@@ -298,6 +324,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             text.setText("0");
                         } else {
                             text.setText(re);
+                            isComplteed=true;
                         }
                     } else {
                         Toast.makeText(MainActivity.this, ero, Toast.LENGTH_SHORT).show();
@@ -324,6 +351,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     x2 = x2.replaceAll("0+?$", "");//去掉多余的0
                     x2 = x2.replaceAll("[.]$", "");//如最后一位是.则去掉
                     text.setText(x2);
+                    isComplteed=true;
                 }
                 break;
             case R.id.btn_percent:
@@ -342,6 +370,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 sinn1 = sinn1.replaceAll("0+?$", "");//去掉多余的0
                 sinn1 = sinn1.replaceAll("[.]$", "");//如最后一位是.则去掉
                 text.setText(sinn1);
+                isComplteed=true;
                 break;
             case R.id.btn_cos:
                 double coss=Double.parseDouble(str);
@@ -351,6 +380,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 coss1 = coss1.replaceAll("0+?$", "");//去掉多余的0
                 coss1 = coss1.replaceAll("[.]$", "");//如最后一位是.则去掉
                 text.setText(coss1);
+                isComplteed=true;
                 break;
             case R.id.btn_PandM:
                 if(str.charAt(0)>='0'&&str.charAt(0)<='9'){
