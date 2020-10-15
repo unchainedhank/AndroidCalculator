@@ -332,6 +332,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
             case R.id.btn_squ2:
+                isComplteed=false;
                 if(str.charAt(0)=='-'){
                     Toast toast = Toast.makeText(MainActivity.this,"负数不能开根号",Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER, 0, 0);
@@ -355,6 +356,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
             case R.id.btn_percent:
+                isComplteed=false;
+
                 double per=Double.parseDouble(str);
                 per=per/100;
                 String per1=""+per;
@@ -363,6 +366,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 text.setText(per1);
                 break;
             case R.id.btn_sin:
+                isComplteed=false;
+
                 double sinn=Double.parseDouble(str);
                 sinn=Math.toRadians(sinn);
                 sinn=Math.sin(sinn);
@@ -373,6 +378,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 isComplteed=true;
                 break;
             case R.id.btn_cos:
+                isComplteed=false;
+
                 double coss=Double.parseDouble(str);
                 coss=Math.toRadians(coss);
                 coss=Math.cos(coss);
@@ -388,12 +395,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         text.setText("0");
                     }
                     else{
-                        text.setText("-"+str);
+                        StringBuilder builder = new StringBuilder(str);
+//                        char num = str.charAt(0);
+                        builder.replace(0,0,"-"+str.charAt(0));
+                        text.setText(builder.toString());
                     }
                 }
                 else if(str.charAt(0)=='-')
-                    text.setText(str.substring(1));
-                else
+                    str = str.substring(1);
                     text.setText(str);
                 break;
             default:
