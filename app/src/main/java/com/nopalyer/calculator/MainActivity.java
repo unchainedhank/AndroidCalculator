@@ -20,7 +20,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             btn_sub,btn_add,btn_equ,btn_p;
     EditText text;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -411,18 +410,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static StringBuffer toPostfix(String infix){
         Stack<String> stack= new Stack<>();   //运算符栈,顺序栈
         StringBuffer postfix=new StringBuffer(infix.length()*2);   //后缀表达式字符串
+
         int i=0;
         while(i<infix.length()){
             char ch=infix.charAt(i);
             switch(ch){
                 case '+':
-                case '-':
                     while(!stack.isEmpty()&&!stack.peek().equals("(")) //如果栈不为空且栈顶元素不是"(",则出栈
-                        postfix.append(stack.pop());   //且添加到后缀表达式串
+                    postfix.append(stack.pop());   //且添加到后缀表达式串
                     stack.push(ch+""); //ch入栈
                     i++;
                     break;
-
+                case '-':
+                    if (i == 0) {
+                        postfix.append(0);
+                        postfix.append(" ");
+                        stack.push("(");
+                        stack.push(ch+"");//ch入栈
+                        i++;
+                        break;
+                    }
                 case '×':
                 case '÷':
                     while(!stack.isEmpty()&&(stack.peek().equals("×")||stack.peek().equals("÷")))  //如果栈顶元素不为空且栈顶元素是"*"或是"/"时,则出栈
@@ -446,13 +453,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     break;
 
                 default:
-                    while((i<infix.length()&&ch>='0'&&ch<='9')||(i<infix.length()&&ch=='.')){
-                        postfix.append(ch);    //如果是数字直接添加到后缀表达式串
-                        i++;
-                        if(i<infix.length())
-                            ch=infix.charAt(i);
+                    if (i==1 && infix.charAt(0)=='-') {
+                        while((i<infix.length()&&ch>='0'&&ch<='9')||(i<infix.length()&&ch=='.')){
+                            postfix.append(ch);
+                            i++;
+                            if (i<infix.length())
+                                ch=infix.charAt(i);
+                        }
+                        postfix.append(" ");
+                        postfix.append('-');
+                        stack.pop();
+                        stack.pop();
+                        }
+                    else {
+                        while((i<infix.length()&&ch>='0'&&ch<='9')||(i<infix.length()&&ch=='.')){
+                            postfix.append(ch);    //如果是数字直接添加到后缀表达式串
+                            i++;
+                            if(i<infix.length())
+                                ch=infix.charAt(i);
+                        }
+                        postfix.append(" ");
                     }
-                    postfix.append(" ");
             }
 
         }
@@ -520,6 +541,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
     public String getResult(){
         String infix = text.getText().toString();
+        //先转后缀
         StringBuffer postfix=toPostfix(infix);
         Double result=toValue(postfix);
         @SuppressLint("DefaultLocale") String re=String.format("%.7f",result);//规避极小误差
